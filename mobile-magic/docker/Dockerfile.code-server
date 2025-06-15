@@ -13,31 +13,31 @@ USER coder
 # Expose code-server's default port
 EXPOSE 8080
 
-RUN git clone https://github.com/code100x/mobile-magic.git /tmp/bolty-worker
-RUN cp -r /tmp/bolty-worker/expo-base-app /tmp/mobile-app
-RUN cp -r /tmp/bolty-worker/nextjs-base-app /tmp/next-app
-RUN cp -r /tmp/bolty-worker/react-base-app /tmp/react-app
-RUN cd /tmp/mobile-app && npm install
-RUN cd /tmp/next-app && npm install
-RUN cd /tmp
-WORKDIR /app
+# RUN git clone https://github.com/code100x/mobile-magic.git /tmp/bolty-worker
+# RUN cp -r /tmp/bolty-worker/expo-base-app /tmp/mobile-app
+# RUN cp -r /tmp/bolty-worker/nextjs-base-app /tmp/next-app
+# RUN cp -r /tmp/bolty-worker/react-base-app /tmp/react-app
+# RUN cd /tmp/mobile-app && npm install
+# RUN cd /tmp/next-app && npm install
+# RUN cd /tmp
+# WORKDIR /app
 
-WORKDIR /tmp
+# WORKDIR /tmp
 
-RUN wget https://github.com/code100x/mobile-magic/raw/refs/heads/main/ext/bolty-listener-0.0.1.vsix
-RUN code-server --install-extension bolty-listener-0.0.1.vsix
+# RUN wget https://github.com/code100x/mobile-magic/raw/refs/heads/main/ext/bolty-listener-0.0.1.vsix
+# RUN code-server --install-extension bolty-listener-0.0.1.vsix
 
-RUN sudo chown -R coder /tmp/bolty-worker
-RUN sudo chown -R coder /tmp/mobile-app
-RUN sudo chown -R coder /tmp/next-app
-RUN sudo chown -R coder /tmp/react-app
-RUN sudo chown -R coder /app
+# RUN sudo chown -R coder /tmp/bolty-worker
+# RUN sudo chown -R coder /tmp/mobile-app
+# RUN sudo chown -R coder /tmp/next-app
+# RUN sudo chown -R coder /tmp/react-app
+# RUN sudo chown -R coder /app
 
-RUN rm -rf /tmp/bolty-worker
+# RUN rm -rf /tmp/bolty-worker
 
 # Set default theme to dark
-RUN mkdir -p /home/coder/.local/share/code-server/User
-RUN echo '{"workbench.colorTheme": "Dark+", "workbench.preferredDarkColorTheme": "Dark+"}' > /home/coder/.local/share/code-server/User/settings.json
+RUN mkdir -p /home/coder
+# RUN echo '{"workbench.colorTheme": "Dark+", "workbench.preferredDarkColorTheme": "Dark+"}' > /home/coder/.local/share/code-server/User/settings.json
 
 # Start code-server on container launch
-CMD ["code-server", "--auth", "none", "--bind-addr", "0.0.0.0:8080", "--disable-telemetry", "/app"]
+CMD ["code-server", "--auth", "none", "--bind-addr", "0.0.0.0:8080","/home/coder"]
